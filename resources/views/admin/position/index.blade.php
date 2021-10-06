@@ -26,7 +26,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$position->position_cd}}</td>
                                     <td>{{$position->position_name}}</td>
-                                    <td>{{$position->salary}}</td>
+                                    <td>Rp. {{number_format($position->salary,2,',','.')}}</td>
                                     <td>
                                         <a href="#" onclick="deletePosition('{{$position->position_cd}}')" class="btn btn-danger d-inline mr-2 mb-2">Hapus</a>
                                         <a href="{{route('admin.position.edit', $position->position_cd)}}" class="btn btn-success d-inline">Edit</a>

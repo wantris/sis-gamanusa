@@ -7,7 +7,6 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <a href="{{route('admin.salaryBonus.create')}}" class="btn btn-primary mb-3"><i class="fas fa-plus mr-2"></i>Tambah</a>
             <div class="card">
                 <div class="card-body">
                     <table id="example" class="display table-striped" style="width:100%">
