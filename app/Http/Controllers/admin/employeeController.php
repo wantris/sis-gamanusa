@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Position;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class employeeController extends Controller
 {
@@ -40,6 +42,15 @@ class employeeController extends Controller
             $em->gender = $request->gender;
             $em->email = $request->email;
             $em->save();
+
+            if ($em) {
+                $acccount = new User();
+                $acccount->employee_id = $em->id;
+                $acccount->username = $em->nik;
+                $acccount->password = Hash::make('Karyawan004');
+                $acccount->role = "reguler";
+                $acccount->save();
+            }
 
             return redirect()->route('admin.employee.index')->with('success', 'Data karyawan berhasil ditambahkan');
         } catch (\Throwable $err) {
@@ -77,6 +88,9 @@ class employeeController extends Controller
                 $em->gender = $request->gender;
                 $em->email = $request->email;
                 $em->save();
+
+
+
                 return redirect()->route('admin.employee.index')->with('success', 'Data karyawan berhasil diupdate');
             } catch (\Throwable $err) {
                 return redirect()->route('admin.employee.index')->with('failed', 'Data karyawan gagal ditambahkan');

@@ -1,40 +1,30 @@
-@extends('admin.template')
+@extends('pegawai.template')
 
-@section('title') {{'Bonus Gaji'}} @endsection
+@section('title') {{'Penerima Bonus Gaji'}} @endsection
 
-@section('breadcumb-title') {{'Data Bonus Gaji'}} @endsection
+@section('breadcumb-title') {{'Data Penerima Bonus Gaji'}} @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <a href="{{route('admin.salaryBonus.create')}}" class="btn btn-primary mb-3"><i class="fas fa-plus mr-2"></i>Tambah</a>
             <div class="card">
                 <div class="card-body">
                     <table id="example" class="display table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th width="10">No.</th>
-                                <th>Title</th>
-                                <th>Deskripsi</th>
-                                <th>Nominal</th>
-                                <th>Tanggal</th>
-                                <th>Action</th>
+                                <th>Nama Karyawan</th>
+                                <th>Gaji</th>
+                                <th>Nominal Bonus</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bonuses as $bonus)
+                            @foreach ($bonus->detailRef as $detail)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$bonus->title}}</td>
-                                    <td>{{$bonus->description}}</td>
-                                    <td>Rp. {{number_format($bonus->nominal,2,',','.')}}</td>
-                                    <td>{{$bonus->created_at->isoFormat('D MMMM Y')}}</td>
-                                    <td>
-                                        <a href="{{route('admin.salaryBonus.detail', $bonus->id)}}" class="btn btn-primary d-inline mr-2 mb-2">Detail</a>
-                                        <a href="#" onclick="deleteSalaryBonus('{{$bonus->id}}')" class="btn btn-danger d-inline mr-2 mb-2">Hapus</a>
-                                        <a href="{{route('admin.salaryBonus.edit', $bonus->id)}}" class="btn btn-success d-inline">Edit</a>
-                                        
-                                    </td>
+                                    <td>{{$detail->employeeRef->name}}</td>
+                                    <td>Rp. {{number_format($detail->employeeRef->positionRef->salary,2,',','.')}}</td>
+                                    <td>Rp. {{number_format($detail->nominal_total,2,',','.')}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -1,39 +1,33 @@
 @extends('admin.template')
 
-@section('title') {{'Bonus Gaji'}} @endsection
+@section('title') {{'Akun'}} @endsection
 
-@section('breadcumb-title') {{'Data Bonus Gaji'}} @endsection
+@section('breadcumb-title') {{'Data Akun'}} @endsection
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <a href="{{route('admin.salaryBonus.create')}}" class="btn btn-primary mb-3"><i class="fas fa-plus mr-2"></i>Tambah</a>
+            <a href="{{route('admin.account.create')}}" class="btn btn-primary mb-3"><i class="fas fa-plus mr-2"></i>Tambah</a>
             <div class="card">
                 <div class="card-body">
                     <table id="example" class="display table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th width="10">No.</th>
-                                <th>Title</th>
-                                <th>Deskripsi</th>
-                                <th>Nominal</th>
-                                <th>Tanggal</th>
+                                <th >No.</th>
+                                <th>Nama Karyawan</th>
+                                <th>username</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bonuses as $bonus)
+                            @foreach ($accounts as $account)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$bonus->title}}</td>
-                                    <td>{{$bonus->description}}</td>
-                                    <td>Rp. {{number_format($bonus->nominal,2,',','.')}}</td>
-                                    <td>{{$bonus->created_at->isoFormat('D MMMM Y')}}</td>
+                                    <td>{{$account->employeeRef->name}}</td>
+                                    <td>{{$account->username}}</td>
                                     <td>
-                                        <a href="{{route('admin.salaryBonus.detail', $bonus->id)}}" class="btn btn-primary d-inline mr-2 mb-2">Detail</a>
-                                        <a href="#" onclick="deleteSalaryBonus('{{$bonus->id}}')" class="btn btn-danger d-inline mr-2 mb-2">Hapus</a>
-                                        <a href="{{route('admin.salaryBonus.edit', $bonus->id)}}" class="btn btn-success d-inline">Edit</a>
-                                        
+                                        <a href="#" class="btn btn-danger d-inline mr-2 mb-2">Hapus</a>
+                                        <a href="#" class="btn btn-success d-inline">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -57,11 +51,11 @@
             $('#example').DataTable();
         } );
 
-        const deleteSalaryBonus = (id) => {
+        const deleteAccount = (code) => {
             event.preventDefault();
-            let url = "/admin/salarybonus/delete";
+            let url = "/admin/account/delete";
             Notiflix.Confirm.Show( 
-                'Data Bonus Gaji',
+                'Jabatan',
                 'Apakah anda yakin ingin menghapus?',
                 'Yes',
                 'No',
@@ -72,7 +66,7 @@
                             type: 'delete', 
                             dataType: "JSON",
                             data: {
-                                "id": id ,
+                                "code": code ,
                             },
                             success: function (response){
                                 if(response.status == 1){
