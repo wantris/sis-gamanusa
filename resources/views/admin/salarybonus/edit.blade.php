@@ -132,7 +132,7 @@
                                     @php
                                         $calculate = (int)$detail->precentage/100 * $bonus->nominal;
                                     @endphp
-                                    <input type="text" id="employee_nominal_{{$key+1}}" value="{{$calculate}}" disabled class="form-control">
+                                    <input type="text" id="employee_nominal_{{$key+1}}"  value="Rp. {{number_format($calculate,2,',','.')}}" disabled class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +320,7 @@
                             separator = sisa ? '.' : '';
                             rupiah += separator + ribuan.join('.');
                         }
-                        $('#employee_nominal_'+number_id).val('Rp. '+calculate+',00');
+                        $('#employee_nominal_'+number_id).val('Rp. '+rupiah+',00');
                     }else{
                         Notiflix.Notify.Failure("Presentase melebih 100%");
                     }
