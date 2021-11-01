@@ -13,7 +13,7 @@
           </div>
           <div class="card-wrap">
             <div class="card-header">
-              <h4>Bonus Gaji</h4>
+              <h4>Riwayat Kelas</h4>
             </div>
             <div class="card-body">
               {{$bonuses}}

@@ -74,17 +74,22 @@
             <img alt="image" src="{{url('assets/img/avatar/avatar-1.png')}}" class="rounded-circle mr-1">
             @php
                 $name = null;
-                $employee = \App\Employee::where('id', Session::get('employee_id'))->first();
-                if($employee){
+                $user = \App\User::where('id', Session::get('user_id'))->first();
+                if($user){
                   
-                  $name = $employee->name;
+                  $name = $user->fullname;
                 }
             @endphp
             <div class="d-sm-none d-lg-inline-block">{{$name}}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
               <div class="dropdown-divider"></div>
-              <a href="{{route('auth.logout')}}" class="dropdown-item has-icon text-danger">
+              <a href="{{route('admin.auth.profile')}}" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Profil
+              </a>
+              <a href="{{route('admin.auth.changepassword')}}" class="dropdown-item has-icon">
+                <i class="fas fa-key"></i> Ganti Password
+              </a>
+              <a href="{{route('admin.auth.logout')}}" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>

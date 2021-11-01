@@ -12,51 +12,44 @@ class adminController extends Controller
 {
     public function index()
     {
-        $accounts = User::with('employeeRef')->where('role', 'admin')->get();
+        $accounts = User::where('role', 'admin')->get();
         return view('admin.admin.index', compact('accounts'));
     }
 
     public function create()
     {
-        $employees = Employee::get();
-        return view('admin.admin.create', compact('employees'));
+        return view('admin.admin.create');
     }
 
     public function save(Request $request)
     {
         $validatedData = $request->validate([
-            'employee' => 'required',
+            'fullname' => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
 
         try {
-            $em = Employee::find($request->employee);
 
-            if ($em) {
-                $acccount = new User();
-                $acccount->employee_id = $request->employee;
-                $acccount->username = $request->username;
-                $acccount->password = Hash::make($request->password);
-                $acccount->role = "admin";
-                $acccount->save();
+            $acccount = new User();
+            $acccount->fullname = $request->fullname;
+            $acccount->username = $request->username;
+            $acccount->password = Hash::make($request->password);
+            $acccount->email = $request->email;
+            $acccount->role = "admin";
+            $acccount->save();
 
-                return redirect()->route('admin.admin.index')->with('success', 'Data akun berhasil ditambahkan');
-            }
-
-            return redirect()->back()->with('failed', 'Data karyawan tidak ada');
+            return redirect()->route('admin.admin.index')->with('success', 'Data admin berhasil ditambahkan');
         } catch (\Throwable $err) {
-            return redirect()->route('admin.admin.index')->with('success', 'Data akun gagal ditambahkan');
+            return redirect()->route('admin.admin.index')->with('failed', 'Data admin gagal ditambahkan');
         }
     }
 
     public function edit($id)
     {
-        $employees = Employee::get();
         $account = User::find($id);
         if ($account) {
-            $employees = Employee::get();
-            return view('admin.admin.edit', compact('employees', 'account'));
+            return view('admin.admin.edit', compact('account'));
         }
         return redirect()->back()->with('failed', 'Data admin tidak ada');
     }
@@ -64,34 +57,31 @@ class adminController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'employee' => 'required',
+            'fullname' => 'required',
+            'email' => 'required',
             'username' => 'required',
         ]);
 
         try {
-            $em = Employee::find($request->employee);
 
-            if ($em) {
-                $acccount = User::find($request->id);
-                if ($acccount) {
-                    $acccount->employee_id = $request->employee;
-                    $acccount->username = $request->username;
-                    if ($request->password) {
-                        $acccount->password = Hash::make($request->password);
-                    } else {
-                        $acccount->password = $request->oldPassword;
-                    }
-                    $acccount->save();
-
-                    return redirect()->route('admin.admin.index')->with('success', 'Data akun berhasil diedit');
+            $acccount = User::find($request->id);
+            if ($acccount) {
+                $acccount->fullname = $request->fullname;
+                $acccount->email = $request->email;
+                $acccount->username = $request->username;
+                if ($request->password) {
+                    $acccount->password = Hash::make($request->password);
+                } else {
+                    $acccount->password = $request->oldPassword;
                 }
+                $acccount->save();
 
-                return redirect()->back()->with('failed', 'Data admin tidak ada');
+                return redirect()->route('admin.admin.index')->with('success', 'Data admin berhasil diedit');
             }
 
-            return redirect()->back()->with('failed', 'Data karyawan tidak ada');
+            return redirect()->back()->with('failed', 'Data admin tidak ada');
         } catch (\Throwable $err) {
-            return redirect()->route('admin.admin.index')->with('success', 'Data akun gagal diedit');
+            return redirect()->route('admin.admin.index')->with('success', 'Data admin gagal diedit');
         }
     }
 

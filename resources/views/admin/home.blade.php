@@ -23,15 +23,30 @@
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
       <div class="card card-statistic-1">
-        <div class="card-icon bg-danger">
-          <i class="fas fa-user-tie"></i>
+        <div class="card-icon bg-primary">
+          <i class="fas fa-user-shield"></i>
         </div>
         <div class="card-wrap">
           <div class="card-header">
-            <h4>Karyawan</h4>
+            <h4>Total Kelas</h4>
           </div>
           <div class="card-body">
-            {{$employee}}
+            {{$admin}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+      <div class="card card-statistic-1">
+        <div class="card-icon bg-primary">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="card-wrap">
+          <div class="card-header">
+            <h4>Total Siswa</h4>
+          </div>
+          <div class="card-body">
+            {{$admin}}
           </div>
         </div>
       </div>
@@ -47,21 +62,6 @@
           </div>
           <div class="card-body">
             {{$user}}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-      <div class="card card-statistic-1">
-        <div class="card-icon bg-success">
-          <i class="fal fa-money-check-edit-alt"></i>
-        </div>
-        <div class="card-wrap">
-          <div class="card-header">
-            <h4>Bonus Gaji</h4>
-          </div>
-          <div class="card-body">
-            {{$bonus}}
           </div>
         </div>
       </div>

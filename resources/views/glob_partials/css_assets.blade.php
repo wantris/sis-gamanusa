@@ -12,3 +12,4 @@
   <link rel="stylesheet" href="{{url('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{url('assets/css/components.css')}}">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />

@@ -13,42 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'authController@index')->name('auth.login');
+Route::get('/admin', 'authController@index')->name('auth.login');
+
 Route::post('/login', 'authController@postLogin')->name('auth.login.post');
-Route::get('/logout', 'authController@logout')->name('auth.logout');
 
-// admin
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'admin\homeController@index')->name('admin.home.index');
+Route::get('/logout', 'authController@logout')->name('admin.auth.logout');
 
-    Route::group(['prefix' => 'position'], function () {
-        Route::get('/', 'admin\positionController@index')->name('admin.position.index');
-        Route::get('/create', 'admin\positionController@create')->name('admin.position.create');
-        Route::post('/create', 'admin\positionController@save')->name('admin.position.save');
-        Route::get('/edit/{code}', 'admin\positionController@edit')->name('admin.position.edit');
-        Route::put('/update', 'admin\positionController@update')->name('admin.position.update');
-        Route::delete('/delete', 'admin\positionController@delete')->name('admin.position.delete');
-    });
-
-    Route::group(['prefix' => 'employee'], function () {
-        Route::get('/', 'admin\employeeController@index')->name('admin.employee.index');
-        Route::get('/create', 'admin\employeeController@create')->name('admin.employee.create');
-        Route::post('/create', 'admin\employeeController@save')->name('admin.employee.save');
-        Route::get('/edit/{id}', 'admin\employeeController@edit')->name('admin.employee.edit');
-        Route::put('/update', 'admin\employeeController@update')->name('admin.employee.update');
-        Route::delete('/delete', 'admin\employeeController@delete')->name('admin.employee.delete');
-        Route::get('/list', 'admin\employeeController@getEmployeeJson')->name('admin.employee.list');
-    });
-
-    Route::group(['prefix' => 'account'], function () {
-        Route::get('/', 'admin\accountController@index')->name('admin.account.index');
-        Route::get('/create', 'admin\accountController@create')->name('admin.account.create');
-        Route::post('/create', 'admin\accountController@save')->name('admin.account.save');
-        Route::get('/edit/{id}', 'admin\accountController@edit')->name('admin.account.edit');
-        // Route::put('/update', 'admin\accountController@update')->name('admin.account.update');
-        // Route::delete('/delete', 'admin\accountController@delete')->name('admin.account.delete');
-        // Route::get('/list', 'admin\accountController@getaccountJson')->name('admin.account.list');
-    });
+//admin
+Route::group(['prefix' => 'admin', 'middleware' => 'adminstatus'], function () {
+    Route::get('/dashboard', 'admin\homeController@index')->name('admin.home.index');
+    Route::get('/profile', 'authController@profile')->name('admin.auth.profile');
+    Route::post('/profile', 'authController@postProfile')->name('admin.auth.profile.post');
+    Route::get('/changepassword', 'authController@changePassword')->name('admin.auth.changepassword');
+    Route::post('/changepassword', 'authController@postChangePassword')->name('admin.auth.changepassword.post');
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'admin\adminController@index')->name('admin.admin.index');
@@ -59,24 +36,54 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/delete', 'admin\adminController@delete')->name('admin.admin.delete');
     });
 
-    Route::group(['prefix' => 'salarybonus'], function () {
-        Route::get('/', 'admin\salaryBonusController@index')->name('admin.salaryBonus.index');
-        Route::get('/create', 'admin\salaryBonusController@create')->name('admin.salaryBonus.create');
-        Route::post('/create', 'admin\salaryBonusController@save')->name('admin.salaryBonus.save');
-        Route::get('/edit/{id}', 'admin\salaryBonusController@edit')->name('admin.salaryBonus.edit');
-        Route::put('/update', 'admin\salaryBonusController@update')->name('admin.salaryBonus.update');
-        Route::get('/detail/{id}', 'admin\salaryBonusController@detail')->name('admin.salaryBonus.detail');
-        Route::delete('/delete', 'admin\salaryBonusController@delete')->name('admin.salaryBonus.delete');
-        Route::delete('/delete/detail', 'admin\salaryBonusController@deleteDetail')->name('admin.salaryBonus.delete.detail');
+    Route::group(['prefix' => 'class'], function () {
+        Route::get('/', 'admin\classController@index')->name('admin.class.index');
+        Route::get('/create', 'admin\classController@create')->name('admin.class.create');
+        Route::post('/create', 'admin\classController@save')->name('admin.class.save');
+        Route::get('/edit/{id}', 'admin\classController@edit')->name('admin.class.edit');
+        Route::put('/update', 'admin\classController@update')->name('admin.class.update');
+        Route::delete('/delete', 'admin\classController@delete')->name('admin.class.delete');
+    });
+
+    Route::group(['prefix' => 'student'], function () {
+        Route::get('/', 'admin\studentController@index')->name('admin.student.index');
+        Route::get('/create', 'admin\studentController@create')->name('admin.student.create');
+        Route::post('/create', 'admin\studentController@save')->name('admin.student.save');
+        Route::get('/edit/{id}', 'admin\studentController@edit')->name('admin.student.edit');
+        Route::put('/update', 'admin\studentController@update')->name('admin.student.update');
+        Route::delete('/delete', 'admin\studentController@delete')->name('admin.student.delete');
+        Route::get('/detail/{id}', 'admin\studentController@detail')->name('admin.student.detail');
+
+        Route::post('/class/create', 'admin\studentController@createClass')->name('admin.student.class.save');
+    });
+
+    Route::group(['prefix' => 'npsn'], function () {
+        Route::get('/', 'admin\npsnController@index')->name('admin.npsn.index');
+        Route::get('/create', 'admin\npsnController@create')->name('admin.npsn.create');
+        Route::post('/create', 'admin\npsnController@save')->name('admin.npsn.save');
+        Route::get('/edit/{id}', 'admin\npsnController@edit')->name('admin.npsn.edit');
+        Route::put('/update', 'admin\npsnController@update')->name('admin.npsn.update');
+        Route::delete('/delete', 'admin\npsnController@delete')->name('admin.npsn.delete');
     });
 });
 
-// admin
-Route::group(['prefix' => 'employee'], function () {
-    Route::get('/', 'employee\homeController@index')->name('employee.home.index');
+//siswa
+Route::group(['prefix' => 'siswa'], function () {
+    Route::get('/', 'student\authController@index')->name('siswa.auth.login');
+    Route::post('/', 'student\authController@postLogin')->name('siswa.auth.login.post');
+    Route::get('/register', 'student\authController@register')->name('siswa.auth.register');
+    Route::get('/logout', 'student\authController@logout')->name('siswa.auth.logout');
+    Route::post('/register', 'student\authController@postRegister')->name('siswa.auth.register.post');
+    Route::get('/register/success', 'student\authController@registerSuccess')->name('siswa.auth.register.success');
 
-    Route::group(['prefix' => 'salarybonus'], function () {
-        Route::get('/', 'employee\salaryBonusController@index')->name('employee.salaryBonus.index');
-        Route::get('/detail/{id}', 'employee\salaryBonusController@detail')->name('employee.salaryBonus.detail');
+    Route::get('/dashboard', 'student\homeController@index')->name('siswa.home.index');
+    Route::get('/profile', 'student\authController@profile')->name('siswa.auth.profile');
+    Route::post('/profile', 'student\authController@postProfile')->name('siswa.auth.profile.post');
+
+    Route::get('/changepassword', 'student\authController@changePassword')->name('siswa.auth.changepassword');
+    Route::post('/changepassword', 'student\authController@postChangePassword')->name('siswa.auth.changepassword.post');
+
+    Route::group(['prefix' => 'class', 'middleware' => 'siswastatus'], function () {
+        Route::get('/', 'student\classController@index')->name('siswa.class.index');
     });
 });

@@ -14,7 +14,7 @@
                         <thead>
                             <tr>
                                 <th width="10">No.</th>
-                                <th>Nama Karyawan</th>
+                                <th>Nama Admin</th>
                                 <th>username</th>
                                 <th>Action</th>
                             </tr>
@@ -23,7 +23,7 @@
                             @foreach ($accounts as $account)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$account->employeeRef->name}}</td>
+                                    <td>{{$account->fullname}}</td>
                                     <td>{{$account->username}}</td>
                                     <td>
                                         <a href="#" onclick="deleteAccount('{{$account->id}}')" class="btn btn-danger d-inline mr-2 mb-2">Hapus</a>

@@ -14,21 +14,31 @@
                         @method('put')
                         <input type="hidden" name="id" value="{{$account->id}}">
                         <div class="form-group">
-                            <label>Nama Karyawan</label>
+                            <label>Nama Admin</label>
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fad fa-user"></i>
                                 </div>
                               </div>
-                              <select name="employee" id="" class="form-control">
-                                  @foreach ($employees as $item)
-                                      <option value="{{$item->id}}" @if($account->employee_id == $item->id) selected @endif>{{$item->name}}</option>
-                                  @endforeach
-                              </select>
+                              <input type="text" value="{{$account->fullname}}" name="fullname" id="" class="form-control">
                             </div>
-                            @if ($errors->has('employee'))
-                                <span class="text-danger">{{ $errors->first('employee') }}</span>
+                            @if ($errors->has('fullname'))
+                                <span class="text-danger">{{ $errors->first('fullname') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fad fa-user"></i>
+                                </div>
+                              </div>
+                              <input type="email" value="{{$account->email}}" name="email" id="" class="form-control">
+                            </div>
+                            @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                         </div>
                         <div class="form-group">
@@ -53,7 +63,7 @@
                                     <i class="fal fa-key"></i>
                                 </div>
                               </div>
-                              <input type="text" name="password" id="" class="form-control">
+                              <input type="password" name="password" id="" class="form-control">
                               <input type="hidden" name="oldPassword" value="{{$account->password}}">
                             </div>
                             @if ($errors->has('password'))

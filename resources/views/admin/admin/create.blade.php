@@ -12,22 +12,31 @@
                     <form action="{{route('admin.admin.save')}}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label>Nama Karyawan</label>
+                            <label>Nama Admin</label>
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <i class="fad fa-user"></i>
                                 </div>
                               </div>
-                              <select name="employee" id="" class="form-control">
-                                  <option selected>Pilih Karyawan</option>
-                                  @foreach ($employees as $item)
-                                      <option value="{{$item->id}}">{{$item->name}}</option>
-                                  @endforeach
-                              </select>
+                              <input type="text" name="fullname" id="" class="form-control">
                             </div>
-                            @if ($errors->has('employee'))
-                                <span class="text-danger">{{ $errors->first('employee') }}</span>
+                            @if ($errors->has('fullname'))
+                                <span class="text-danger">{{ $errors->first('fullname') }}</span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fad fa-user"></i>
+                                </div>
+                              </div>
+                              <input type="email" name="email" id="" class="form-control">
+                            </div>
+                            @if ($errors->has('email'))
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
                             @endif
                         </div>
                         <div class="form-group">

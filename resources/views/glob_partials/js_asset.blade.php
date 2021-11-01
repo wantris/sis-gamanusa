@@ -17,6 +17,7 @@
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
   <script src="{{url('notiflix/dist/notiflix-2.7.0.min.js')}}"></script>
   <script src="{{url('notiflix/dist/notiflix-aio-2.7.0.min.js')}}"></script>
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
 @if (session()->has('failed'))
     <script>
