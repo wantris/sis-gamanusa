@@ -12,7 +12,6 @@
 
           <li class="menu-header">Akun</li>
           <li><a class="nav-link" href="{{route('admin.admin.index')}}"><i class="fal fa-unlock-alt"></i> <span>Admin</span></a></li>
-          <li><a class="nav-link" href="{{route('admin.admin.index')}}"><i class="fas fa-user"></i> <span>Siswa</span></a></li>
 
           <li class="menu-header">Kelas</li>
           <li><a class="nav-link" href="{{route('admin.class.index')}}"><i class="fas fa-users-class"></i><span>Data Kelas</span></a></li>
