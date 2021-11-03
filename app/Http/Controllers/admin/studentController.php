@@ -86,6 +86,7 @@ class studentController extends Controller
 
             return redirect()->back()->with('failed', 'Terjadi kesalahan silahkanhubungi yang bersangkutan');
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with('failed', 'Terjadi kesalahan silahkanhubungi yang bersangkutan');
         }
     }

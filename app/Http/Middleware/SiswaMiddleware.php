@@ -17,10 +17,8 @@ class SiswaMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Session::get('is_student') == "0"  && Session::get('is_student') == "0") {
+        if (Session::get('is_student') != "1") {
             return redirect()->route('siswa.auth.login')->with('failed', 'Anda harus login');
-        } elseif (Session::get('is_student') == "1"  && Session::get('is_student') == "0") {
-            return redirect()->route('siswa.auth.login')->with('failed', 'Anda bukan siswa');
         }
 
         return $next($request);
