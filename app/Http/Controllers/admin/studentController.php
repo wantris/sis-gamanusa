@@ -24,7 +24,7 @@ class studentController extends Controller
 
     public function create()
     {
-        return view('admin.student.create', compact('classes'));
+        return view('admin.student.create');
     }
 
     public function save(Request $request)

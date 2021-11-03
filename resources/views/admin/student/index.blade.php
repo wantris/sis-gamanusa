@@ -28,7 +28,11 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$student->nis}}</td>
                                     <td>{{$student->fullname}}</td>
-                                    <td>{{$student->lastStudentClassRef->classRef->level.$student->lastStudentClassRef->classRef->class_name}}</td>
+                                    <td>
+                                        @if ($student->lastStudentClassRef)
+                                        {{$student->lastStudentClassRef->classRef->level.$student->lastStudentClassRef->classRef->class_name}}
+                                        @endif 
+                                    </td>
                                     <td>{{$student->gender}}</td>
                                     <td>{{$student->email}}</td>
                                     <td>
