@@ -35,12 +35,6 @@ class authController extends Controller
                     Session::put('user_id', $check_username->id);
 
                     return redirect()->route('admin.home.index');
-                } else {
-                    Session::put('is_admin', '0');
-                    Session::put('is_student', '1');
-                    Session::put('id', $check_username->id);
-                    Session::put('user_id', $check_username->id);
-                    return redirect()->route('employee.home.index');
                 }
             } else {
                 return redirect()->back()->with('failed', 'Password salah');
